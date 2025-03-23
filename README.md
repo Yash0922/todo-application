@@ -60,7 +60,7 @@ This Todo application allows users to create, view, update, and delete tasks wit
 ### Top-level Structure
 ```
 todo-application/
-├── backend/            # Backend server code
+├── todo-backend/            # Backend server code
 ├── todo-app/           # Frontend Next.js application
 └── README.md           # Project documentation
 ```
@@ -137,7 +137,7 @@ Before you begin, ensure you have the following installed:
 3. Create environment file:
    ```sh
    PORT=5000
-   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/todoapp
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/todoApp
    CORS_ORIGIN=http://localhost:3000
    ```
 4. Start the backend server:
