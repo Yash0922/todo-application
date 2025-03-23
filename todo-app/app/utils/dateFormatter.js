@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-// Format date to 'Month Day, Year' (e.g., 'July 7, 2023')
+
 export const formatDate = (dateString) => {
   try {
     const date = new Date(dateString);
@@ -11,7 +11,7 @@ export const formatDate = (dateString) => {
   }
 };
 
-// Format date to 'Month Day, Year' (e.g., 'July 7, 2023')
+
 export const formatShortDate = (dateString) => {
   try {
     const date = new Date(dateString);

@@ -11,7 +11,7 @@ const api = axios.create({
   },
 });
 
-// Todo API functions
+
 export const fetchTodos = async (page = 1, limit = 10) => {
   try {
     const response = await api.get(`/todos?page=${page}&limit=${limit}`);

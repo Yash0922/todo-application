@@ -12,7 +12,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if we're in a mobile viewport on mount and window resize
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -26,7 +26,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     };
   }, []);
 
-  // Update local state when todo changes
+
   useEffect(() => {
     if (todo) {
       setTitle(todo.title || '');
@@ -35,7 +35,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     }
   }, [todo]);
 
-  // Auto-save when title or description changes
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (todo && (title !== todo.title || description !== todo.description)) {
@@ -46,14 +46,14 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     return () => clearTimeout(timeoutId);
   }, [title, description, todo]);
 
-  // Handle saving changes
+ 
   const handleSave = async () => {
     if (!todo) return;
     
     try {
       setLoading(true);
       
-      // Pass the updated data to the parent component
+     
       if (onUpdate) {
         onUpdate({ title, description });
       }
@@ -65,7 +65,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     }
   };
 
-  // Handle deleting todo
+
   const handleDelete = async () => {
     if (!todo) return;
     

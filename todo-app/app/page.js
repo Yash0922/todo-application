@@ -16,7 +16,6 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Load todos from API
   const loadTodos = async () => {
     try {
       setLoading(true);
@@ -31,18 +30,16 @@ export default function Home() {
     }
   };
 
-  // Initial load and when page changes
   useEffect(() => {
     loadTodos();
   }, [page]);
 
-  // Check if we're on mobile viewport
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       
-      // On mobile, hide editor initially if no todo is selected
+    
       if (mobile && !selectedTodo) {
         setShowEditor(false);
       }
@@ -56,13 +53,12 @@ export default function Home() {
     };
   }, [selectedTodo]);
 
-  // Handle selecting a todo
+
   const handleSelectTodo = (todo) => {
     setSelectedTodo(todo);
     setShowEditor(true);
   };
 
-  // Handle creating a new todo
   const handleCreateTodo = async () => {
     try {
       const newTodo = await createTodo({
@@ -70,10 +66,10 @@ export default function Home() {
         description: 'To stay representative of framework & new example apps.'
       });
       
-      // Update the todos array with the new todo
+   
       setTodos([newTodo, ...todos]);
       
-      // Select the new todo
+      
       setSelectedTodo(newTodo);
       setShowEditor(true);
     } catch (err) {
@@ -82,15 +78,13 @@ export default function Home() {
     }
   };
 
-  // Handle updating a todo
+
   const handleUpdateTodo = async (todoId, updatedData) => {
     try {
       const updatedTodo = await updateTodo(todoId, updatedData);
       
-      // Update both the selected todo and the todos list
       setSelectedTodo(updatedTodo);
       
-      // Update the todo in the list
       setTodos(todos.map(todo => 
         todo._id === updatedTodo._id ? updatedTodo : todo
       ));
@@ -100,15 +94,12 @@ export default function Home() {
     }
   };
 
-  // Handle deleting a todo
   const handleDeleteTodo = async (todoId) => {
     try {
       await deleteTodo(todoId);
       
-      // Remove the todo from the list
       setTodos(todos.filter(todo => todo._id !== todoId));
       
-      // Clear the selected todo
       setSelectedTodo(null);
       
       if (isMobile) {

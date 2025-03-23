@@ -7,7 +7,7 @@ const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const inputRef = useRef(null);
 
-  // Auto-focus the input when the search bar appears
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();

@@ -1,6 +1,5 @@
 const Todo = require('../models/Todo');
 
-// Get all todos with pagination
 exports.getTodos = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   
@@ -24,7 +23,7 @@ exports.getTodos = async (req, res) => {
   }
 };
 
-// Get a single todo
+
 exports.getTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
@@ -38,8 +37,6 @@ exports.getTodo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-// Create a new todo
 exports.createTodo = async (req, res) => {
   try {
     const { title, description } = req.body;
@@ -56,7 +53,7 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-// Update a todo
+
 exports.updateTodo = async (req, res) => {
   try {
     const { title, description } = req.body;

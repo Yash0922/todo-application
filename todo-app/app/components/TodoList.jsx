@@ -19,7 +19,7 @@ const TodoList = ({
 }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
-  // Define the maximum items per page (should match the backend limit)
+
   const ITEMS_PER_PAGE = 10;
 
   const handleSearch = (searchTerm) => {
@@ -29,14 +29,14 @@ const TodoList = ({
       return;
     }
 
-    // Filter todos based on search term
+ 
     const results = todos.filter(todo => 
       todo.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
       todo.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
     setSearchResults(results);
-    // Keep search bar open to show results
+    
   };
 
   const toggleSearchBar = () => {
@@ -46,10 +46,10 @@ const TodoList = ({
     }
   };
 
-  // Determine which todos to display
+
   const displayTodos = searchResults !== null ? searchResults : todos;
   
-  // Calculate if pagination should show based on total todos or current number
+
   const shouldShowPagination = totalPages > 1 || todos.length >= ITEMS_PER_PAGE;
 
   if (loading && todos.length === 0) {

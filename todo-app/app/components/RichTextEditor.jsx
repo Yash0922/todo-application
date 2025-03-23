@@ -26,8 +26,6 @@ const RichTextEditor = ({ value, onChange }) => {
     }
   };
 
-  // These functions would normally apply formatting to selected text
-  // in a real rich text editor. For this demo, they're placeholders.
   const handleBold = () => console.log('Bold');
   const handleItalic = () => console.log('Italic');
   const handleUnderline = () => console.log('Underline');
