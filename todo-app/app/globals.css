@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base color palette */
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb:#f4f4f4;
+  --background-light-rgb: #f4f4f4;
+  --primary-color: #06D6A0;
+  --border-color: 229, 231, 235;
+  --text-gray: 107, 114, 128;
+  --active-item-border: #1a1a1a;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-rgb));
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Main layout sections */
+.sidebar {
+  background-color: rgb(var(--background-light-rgb));
+  min-height: calc(100vh - 80px);
+  border-right: 1px solid rgba(var(--border-color), 0.5);
+}
+
+/* Todo items styling */
+.todo-item {
+  @apply p-4 rounded-lg mb-2 hover:bg-gray-50 cursor-pointer transition-all;
+  background-color: white;
+  border: 1px solid transparent;
+}
+
+.todo-item.active {
+  @apply border;
+  border-color: rgb(var(--active-item-border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-width: 3px;
+}
+
+.todo-item h3 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.todo-item p {
+  color: rgb(var(--text-gray));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Button styling */
+.btn-primary {
+  @apply bg-black text-white px-4 py-2 rounded-lg;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #333;
+}
+
+/* Rich text editor toolbar */
+.todo-editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+}
+
+.todo-editor-toolbar button {
+  @apply p-2 rounded hover:bg-gray-100;
+  color: #333;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-editor-toolbar button.active {
+  @apply bg-gray-200;
+}
+
+/* Header styling */
+header {
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+}
+
+/* Date text styling */
+.text-date {
+  color: rgb(var(--text-gray));
+  font-size: 0.875rem;
+}
+
+/* Draft.js editor styling */
+.DraftEditor-root {
+  min-height: 180px;
+  width: 100%;
+}
+
+.DraftEditor-editorContainer {
+  min-height: 180px;
+  position: relative;
+  z-index: 1;
+}
+
+.public-DraftEditorPlaceholder-root {
+  color: #9ca3af;
+  position: absolute;
+  z-index: 0;
+}
+
+.public-DraftEditor-content {
+  min-height: 180px;
+}
+
+/* Text alignment styles */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* List styles inside editor */
+.public-DraftStyleDefault-ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.public-DraftStyleDefault-ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
+/* Search button styling */
+.search-button {
+  background-color: white;
+  border: 1px solid rgba(var(--border-color), 1);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--text-gray));
+}
+
+.search-button:hover {
+  background-color: rgba(var(--background-light-rgb), 0.8);
+}
+
+/* Focus styles */
+input:focus, textarea:focus, button:focus {
+  outline: none;
+  ring-color: var(--primary-color);
+  ring-width: 2px;
+}
