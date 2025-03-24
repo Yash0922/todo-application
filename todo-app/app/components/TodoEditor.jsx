@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import RichTextEditor from './RichTextEditor';
 import { formatDate } from '../utils/dateFormatter';
@@ -11,7 +11,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
-
+  const initialLoadRef = useRef(true);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -26,34 +26,39 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     };
   }, []);
 
-
+  // Update local state when todo changes, but only on initial load or when todo ID changes
   useEffect(() => {
     if (todo) {
-      setTitle(todo.title || '');
-      setDescription(todo.description || '');
-      setError(null);
+      if (initialLoadRef.current || todo._id !== initialLoadRef.current) {
+        setTitle(todo.title || '');
+        setDescription(todo.description || '');
+        setError(null);
+        initialLoadRef.current = todo._id; // Store the ID to track changes
+      }
     }
   }, [todo]);
 
-
+  // Auto-save when title or description changes
   useEffect(() => {
+    // Skip the first render to avoid unnecessary saves
+    if (initialLoadRef.current === true) return;
+    
     const timeoutId = setTimeout(() => {
       if (todo && (title !== todo.title || description !== todo.description)) {
         handleSave();
       }
-    }, 1000); // Debounce for 1 second
+    }, 2000); // Debounce for 1 second
     
     return () => clearTimeout(timeoutId);
   }, [title, description, todo]);
 
- 
+  // Handle saving changes
   const handleSave = async () => {
     if (!todo) return;
     
     try {
       setLoading(true);
       
-     
       if (onUpdate) {
         onUpdate({ title, description });
       }
@@ -65,7 +70,7 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
     }
   };
 
-
+  // Handle deleting todo
   const handleDelete = async () => {
     if (!todo) return;
     
@@ -104,30 +109,27 @@ const TodoEditor = ({ todo, onUpdate, onDelete, onBack }) => {
             <FiArrowLeft size={24} />   <span className='font-bold text-xl'>Back</span>
           </button>
         )}
-        
-       
       </div>
       
       {error && <div className="mb-4 text-red-500">{error}</div>}
       
       <div className="flex items-center mb-4 ml-2">
-
-     
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-xl font-bold mb-4 p-2 border-b focus:outline-none focus:border-primary"
-        placeholder="Todo Title"
-      />
-       <button
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full text-xl font-bold mb-4 p-2 border-b focus:outline-none focus:border-primary"
+          placeholder="Todo Title"
+        />
+        <button
           onClick={handleDelete}
           className="ml-auto text-gray-500 hover:text-red-600 mb-5"
           title="Delete todo"
         >
           <FiTrash2 size={20} />
         </button>
-        </div>
+      </div>
+      
       <div className="flex space-x-2 mb-4">
         {todo.updatedAt && (
           <span className="text-sm text-gray-500">
